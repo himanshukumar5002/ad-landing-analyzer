@@ -4,12 +4,11 @@ import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from dotenv import load_dotenv
-
+from app.routes import health, ocr, analyze
 # Load environmental variables
 load_dotenv()
 
 # Import routes
-from app.routes import health, ocr, analyze
 
 app = FastAPI(
     title="Ad-to-Landing Page Fit Analyzer API",
