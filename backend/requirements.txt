@@ -1,0 +1,13 @@
+fastapi
+uvicorn
+pydantic
+langchain
+langchain-openai
+langchain-core
+pytesseract
+Pillow
+requests
+beautifulsoup4
+python-multipart
+python-dotenv
+firecrawl-py

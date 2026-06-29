@@ -1,0 +1,44 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+body {
+  margin: 0;
+  background-color: #0b0f19;
+  color: #f1f5f9;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Glassmorphism scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+::-webkit-scrollbar-track {
+  background: #0f172a;
+}
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 4px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* Custom gradient background utility */
+.hero-gradient {
+  background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at top right, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
+              radial-gradient(circle at bottom, rgba(244, 63, 94, 0.03) 0%, transparent 50%);
+}
+
+.card-gradient {
+  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+/* CSS animation for progress circle border */
+@keyframes progressCircle {
+  from {
+    stroke-dashoffset: 283;
+  }
+}
