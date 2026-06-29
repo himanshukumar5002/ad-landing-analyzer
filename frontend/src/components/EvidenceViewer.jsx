@@ -1,5 +1,5 @@
 import React from 'react';
-import { FaAd, FaLink, FaCheckCircle, FaExclamationCircle } from 'react-icons/fa';
+import { FaAd, FaLink } from 'react-icons/fa';
 
 export default function EvidenceViewer({ adText, landingPageData }) {
   // Normalize landing page text to find matching keywords
@@ -14,33 +14,28 @@ export default function EvidenceViewer({ adText, landingPageData }) {
 
   // Helper to split text by word-like tokens and highlight them
   const renderHighlightedAdCopy = () => {
-    if (!adText) return <span className="text-slate-400">No ad text provided.</span>;
+    if (!adText) return <span className="text-slate-500">No ad copy provided.</span>;
 
-    // Regex to split by words but preserve punctuation and spacing
     const tokens = adText.split(/(\s+)/);
 
     return tokens.map((token, index) => {
-      // Check if it's whitespace
       if (/^\s+$/.test(token)) {
         return <span key={index}>{token}</span>;
       }
 
-      // Clean the word for lookup (remove punctuation)
       const cleanWord = token.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()?"']/g, "").trim().toLowerCase();
       
-      // If it's empty after cleaning, just print token
       if (!cleanWord || cleanWord.length < 2 || ['and', 'the', 'for', 'with', 'but', 'you', 'your', 'our', 'this'].includes(cleanWord)) {
-        return <span key={index} className="text-slate-300">{token}</span>;
+        return <span key={index} className="text-slate-400">{token}</span>;
       }
 
-      // Check if word exists in landing page corpus
       const isMatch = corpus.includes(cleanWord);
 
       if (isMatch) {
         return (
           <span
             key={index}
-            className="px-1 py-0.5 rounded bg-emerald-500/20 text-emerald-300 border-b border-emerald-500/40 font-semibold cursor-help"
+            className="px-1 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border-b border-emerald-500/30 font-semibold cursor-help hover:bg-emerald-500/20 transition-colors"
             title={`Matched: '${cleanWord}' was found in the landing page.`}
           >
             {token}
@@ -50,7 +45,7 @@ export default function EvidenceViewer({ adText, landingPageData }) {
         return (
           <span
             key={index}
-            className="px-1 py-0.5 rounded bg-rose-500/20 text-rose-300 border-b border-rose-500/40 font-semibold cursor-help"
+            className="px-1 py-0.5 rounded bg-rose-500/10 text-rose-400 border-b border-rose-500/30 font-semibold cursor-help hover:bg-rose-500/20 transition-colors"
             title={`Mismatch: '${cleanWord}' was not found in the landing page.`}
           >
             {token}
@@ -60,90 +55,118 @@ export default function EvidenceViewer({ adText, landingPageData }) {
     });
   };
 
+  // Generate fake lines for scanner aesthetics
+  const getLineNumbers = () => {
+    if (!adText) return [1];
+    const linesCount = Math.max(1, adText.split('\n').length);
+    return Array.from({ length: linesCount + 3 }, (_, i) => i + 1);
+  };
+
   return (
-    <div className="w-full bg-slate-950/40 rounded-3xl border border-white/5 overflow-hidden shadow-xl">
-      {/* Header banner */}
-      <div className="bg-slate-900/80 px-6 py-4 border-b border-white/5 flex items-center justify-between">
-        <h3 className="text-sm font-bold uppercase tracking-wider text-slate-300">
-          Messaging Continuity & Evidence Viewer
-        </h3>
-        <div className="flex items-center gap-4 text-xs font-semibold">
+    <div className="w-full bg-slate-950/60 rounded-3xl border border-white/5 overflow-hidden shadow-2xl relative">
+      <div className="absolute inset-0 grid-bg opacity-[0.02] pointer-events-none"></div>
+
+      {/* Header Banner */}
+      <div className="bg-slate-900/80 px-6 py-4 border-b border-white/5 flex flex-wrap items-center justify-between gap-4 relative z-10">
+        <div className="flex items-center gap-2">
+          <span className="flex gap-1.5 mr-2">
+            <span className="w-2.5 h-2.5 rounded-full bg-rose-500/80"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500/80"></span>
+          </span>
+          <h3 className="text-xs font-bold uppercase tracking-widest text-slate-400">
+            Continuity Scanner Dashboard
+          </h3>
+        </div>
+        <div className="flex items-center gap-4 text-[10px] font-bold uppercase tracking-wider">
           <span className="flex items-center gap-1.5 text-emerald-400">
-            <span className="w-2.5 h-2.5 rounded-full bg-emerald-500"></span>
-            Matched Page Terms
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+            Matched Keywords
           </span>
           <span className="flex items-center gap-1.5 text-rose-400">
-            <span className="w-2.5 h-2.5 rounded-full bg-rose-500"></span>
-            Missing Page Terms
+            <span className="w-1.5 h-1.5 rounded-full bg-rose-400"></span>
+            Friction Words
           </span>
         </div>
       </div>
 
-      {/* Split Screens */}
-      <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5">
-        {/* Left Screen: Ad Copy */}
+      {/* Split Screen Container */}
+      <div className="grid grid-cols-1 md:grid-cols-2 divide-y md:divide-y-0 md:divide-x divide-white/5 relative z-10">
+        
+        {/* Left: Interactive Copy Scanner */}
         <div className="p-6 space-y-4">
-          <div className="flex items-center gap-2 text-xs font-bold text-accentNeon uppercase tracking-widest">
+          <div className="flex items-center gap-2 text-xs font-bold text-emerald-400 uppercase tracking-widest">
             <FaAd className="text-base" />
-            <span>Advertisement creative</span>
+            <span>Ad Creative Copy</span>
           </div>
-          <div className="bg-slate-900/40 rounded-2xl p-5 border border-white/5 min-h-[220px] max-h-[300px] overflow-y-auto leading-relaxed text-sm">
-            {renderHighlightedAdCopy()}
+
+          <div className="terminal-window rounded-2xl flex p-4 text-xs font-mono min-h-[250px] max-h-[300px] overflow-y-auto leading-relaxed relative">
+            {/* Line numbers for tech feel */}
+            <div className="text-slate-600 select-none text-right pr-4 border-r border-white/5 flex flex-col gap-0.5">
+              {getLineNumbers().map(num => (
+                <span key={num}>{num}</span>
+              ))}
+            </div>
+            {/* Highlighter copy content */}
+            <div className="pl-4 text-slate-300 flex-1 whitespace-pre-wrap">
+              {renderHighlightedAdCopy()}
+            </div>
           </div>
         </div>
 
-        {/* Right Screen: Landing Page Components */}
+        {/* Right: Parsed Landing Page */}
         <div className="p-6 space-y-4">
-          <div className="flex items-center gap-2 text-xs font-bold text-accentPurple uppercase tracking-widest">
+          <div className="flex items-center gap-2 text-xs font-bold text-purple-400 uppercase tracking-widest">
             <FaLink className="text-sm" />
-            <span>Parsed Landing Page Copy</span>
+            <span>Parsed Page Assets</span>
           </div>
 
-          <div className="bg-slate-900/40 rounded-2xl p-5 border border-white/5 min-h-[220px] max-h-[300px] overflow-y-auto space-y-3.5 text-xs">
+          <div className="terminal-window rounded-2xl p-5 min-h-[250px] max-h-[300px] overflow-y-auto space-y-4 text-xs">
             {landingPageData ? (
               <>
-                <div className="border-b border-white/5 pb-2">
-                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Page Title</span>
-                  <span className="text-slate-200">{landingPageData.title}</span>
+                <div className="border-b border-white/5 pb-2.5 last:border-b-0 last:pb-0">
+                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Page Title Tag</span>
+                  <span className="text-slate-200 font-medium">{landingPageData.title}</span>
                 </div>
-                <div className="border-b border-white/5 pb-2">
-                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Hero Heading (H1)</span>
-                  <span className="text-slate-200">{landingPageData.heroHeading}</span>
+                <div className="border-b border-white/5 pb-2.5 last:border-b-0 last:pb-0">
+                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Primary Header (H1)</span>
+                  <span className="text-slate-200 font-medium">{landingPageData.heroHeading}</span>
                 </div>
-                <div className="border-b border-white/5 pb-2">
-                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Subheading</span>
-                  <span className="text-slate-200">{landingPageData.subheading}</span>
+                <div className="border-b border-white/5 pb-2.5 last:border-b-0 last:pb-0">
+                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Page Subtitle</span>
+                  <span className="text-slate-300 leading-relaxed">{landingPageData.subheading}</span>
                 </div>
-                <div className="border-b border-white/5 pb-2">
-                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Primary CTA Buttons</span>
-                  <span className="text-slate-200">{landingPageData.cta}</span>
+                <div className="border-b border-white/5 pb-2.5 last:border-b-0 last:pb-0">
+                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Action CTA Elements</span>
+                  <span className="text-emerald-400 font-semibold">{landingPageData.cta}</span>
                 </div>
-                <div className="border-b border-white/5 pb-2">
-                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Pricing & Discounts</span>
+                <div className="border-b border-white/5 pb-2.5 last:border-b-0 last:pb-0">
+                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Price / Discounts</span>
                   <div className="flex gap-2 mt-1">
-                    <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300">Price: {landingPageData.pricing}</span>
-                    <span className="px-2 py-0.5 rounded bg-slate-800 text-slate-300">Promo: {landingPageData.discount}</span>
+                    <span className="px-2 py-0.5 rounded bg-slate-900 border border-white/5 text-slate-300">Price Points: {landingPageData.pricing}</span>
+                    <span className="px-2 py-0.5 rounded bg-slate-900 border border-white/5 text-slate-300">Offers: {landingPageData.discount}</span>
                   </div>
                 </div>
-                <div className="border-b border-white/5 pb-2">
-                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Product Description snippet</span>
-                  <p className="text-slate-300 leading-normal line-clamp-3">{landingPageData.productDescription}</p>
+                <div className="border-b border-white/5 pb-2.5 last:border-b-0 last:pb-0">
+                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Main Product Copy</span>
+                  <p className="text-slate-400 leading-relaxed line-clamp-3">{landingPageData.productDescription}</p>
                 </div>
-                <div>
-                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Shipping & Return Terms</span>
+                <div className="last:border-b-0 last:pb-0">
+                  <span className="text-slate-500 font-bold uppercase tracking-wider block mb-1">Shipping & Return Guarantees</span>
                   <div className="flex flex-col gap-1 text-[11px] text-slate-300">
                     <div>• Shipping: {landingPageData.shipping}</div>
-                    <div>• Guarantee: {landingPageData.refundPolicy}</div>
+                    <div>• Returns: {landingPageData.refundPolicy}</div>
                   </div>
                 </div>
               </>
             ) : (
               <div className="flex items-center justify-center h-full text-slate-500 py-12">
-                No landing page data loaded.
+                No scraping data parsed.
               </div>
             )}
           </div>
         </div>
+
       </div>
     </div>
   );

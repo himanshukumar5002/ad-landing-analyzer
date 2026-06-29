@@ -1,32 +1,29 @@
 import React from 'react';
-import { FaGithub, FaAward } from 'react-icons/fa';
+import { FaGithub, FaRocket } from 'react-icons/fa';
 
 export default function Navbar() {
   return (
-    <nav className="sticky top-0 z-50 backdrop-blur-md bg-darkBg/75 border-b border-white/5 px-6 py-4">
+    <nav className="sticky top-0 z-50 backdrop-blur-md bg-white/70 border-b border-slate-200/50 px-6 py-4">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
-        {/* Logo and Branding */}
-        <div className="flex items-center gap-3 group">
-          <div className="relative">
-            <div className="absolute -inset-1 bg-gradient-to-r from-accentNeon to-accentPurple rounded-lg blur opacity-75 group-hover:opacity-100 transition duration-500"></div>
-            <div className="relative bg-darkBg p-2 rounded-lg text-accentNeon">
-              <FaAward className="text-xl animate-pulse" />
-            </div>
+        {/* Logo and Branding matching the user screenshot */}
+        <div className="flex items-center gap-2.5 group cursor-pointer">
+          <div className="text-slate-900 text-xl font-bold flex items-center justify-center">
+            <FaRocket className="transform rotate-[15deg] group-hover:rotate-[45deg] transition-transform duration-300" />
           </div>
-          <span className="font-extrabold text-xl tracking-tight bg-gradient-to-r from-white via-slate-200 to-slate-400 bg-clip-text text-transparent group-hover:text-white transition-colors duration-300">
-            AdMatch<span className="text-accentNeon font-medium">.ai</span>
+          <span className="font-extrabold text-lg tracking-tight text-slate-800 font-sans">
+            Admatch<span className="text-slate-400 font-medium">.Ai</span>
           </span>
         </div>
 
-        {/* Action Button */}
+        {/* GitHub Link */}
         <div>
           <a
-            href="https://github.com"
+            href="https://github.com/himanshukumar5002/ad-landing-analyzer"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-medium text-slate-300 bg-white/5 border border-white/10 hover:bg-white/10 hover:text-white transition-all duration-300 hover:scale-105"
+            className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold text-slate-600 hover:text-slate-900 bg-slate-100 hover:bg-slate-200 border border-slate-200/80 transition-all duration-200 hover:scale-105"
           >
-            <FaGithub className="text-lg" />
+            <FaGithub className="text-sm" />
             <span>GitHub</span>
           </a>
         </div>

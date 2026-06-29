@@ -8,11 +8,11 @@ export default {
   theme: {
     extend: {
       colors: {
-        darkBg: '#0f172a',     // Deep slate blue
-        darkCard: '#1e293b',   // Slate blue card
+        darkBg: '#f8fafc',     // Light background
+        darkCard: '#ffffff',   // White card
         accentNeon: '#10b981', // Emerald green
-        accentPurple: '#8b5cf6', // Violet
-        accentRose: '#f43f5e',  // Rose pink
+        accentPurple: '#4f46e5', // Royal Indigo
+        accentRose: '#ef4444',  // Rose red
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],

@@ -1,44 +1,133 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 
 body {
   margin: 0;
-  background-color: #0b0f19;
-  color: #f1f5f9;
-  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  background-color: #f6f8fb;
+  color: #1e293b;
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
-/* Glassmorphism scrollbar */
+/* Scrollbar styling for Light Mode */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
-  background: #0f172a;
+  background: #f6f8fb;
 }
 ::-webkit-scrollbar-thumb {
-  background: #334155;
-  border-radius: 4px;
+  background: #cbd5e1;
+  border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #94a3b8;
 }
 
-/* Custom gradient background utility */
-.hero-gradient {
-  background: radial-gradient(circle at top left, rgba(16, 185, 129, 0.08) 0%, transparent 40%),
-              radial-gradient(circle at top right, rgba(139, 92, 246, 0.08) 0%, transparent 40%),
-              radial-gradient(circle at bottom, rgba(244, 63, 94, 0.03) 0%, transparent 50%);
+/* Light Mode High-tech Grid Background Overlay */
+.grid-bg {
+  background-image: 
+    linear-gradient(to right, rgba(15, 23, 42, 0.015) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(15, 23, 42, 0.015) 1px, transparent 1px);
+  background-size: 50px 50px;
 }
 
+/* Soft vector curves like the screenshot */
+.hero-glow {
+  background: radial-gradient(circle at 50% -20%, rgba(99, 102, 241, 0.06) 0%, rgba(255, 255, 255, 0.9) 60%, transparent 100%),
+              radial-gradient(circle at 10% 50%, rgba(16, 185, 129, 0.03) 0%, transparent 40%);
+}
+
+/* Premium Light Mode Card with subtle shadow */
 .card-gradient {
-  background: linear-gradient(135deg, rgba(30, 41, 59, 0.7) 0%, rgba(15, 23, 42, 0.8) 100%);
-  border: 1px solid rgba(255, 255, 255, 0.05);
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 10px 30px -10px rgba(15, 23, 42, 0.04), 
+              0 1px 3px rgba(15, 23, 42, 0.02);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
-/* CSS animation for progress circle border */
-@keyframes progressCircle {
-  from {
-    stroke-dashoffset: 283;
+.card-gradient:hover {
+  box-shadow: 0 20px 40px -15px rgba(99, 102, 241, 0.1),
+              0 1px 5px rgba(15, 23, 42, 0.03);
+  border-color: rgba(99, 102, 241, 0.2);
+  transform: translateY(-2px);
+}
+
+/* Glow effects for cards in light mode */
+.glow-card {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4px 20px -5px rgba(16, 185, 129, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card:hover {
+  box-shadow: 0 15px 30px -10px rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
+  transform: translateY(-2px);
+}
+
+.glow-card-purple {
+  background: #ffffff;
+  border: 1px solid rgba(15, 23, 42, 0.06);
+  box-shadow: 0 4px 20px -5px rgba(139, 92, 246, 0.05);
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glow-card-purple:hover {
+  box-shadow: 0 15px 30px -10px rgba(139, 92, 246, 0.15);
+  border-color: rgba(139, 92, 246, 0.3);
+  transform: translateY(-2px);
+}
+
+/* Breathing alert for critical mismatches in light mode */
+.mismatch-pulse {
+  animation: borderPulseLight 2.5s infinite alternate;
+}
+
+@keyframes borderPulseLight {
+  0% {
+    border-color: rgba(239, 68, 68, 0.15);
+    box-shadow: 0 4px 15px rgba(239, 68, 68, 0.03);
   }
+  100% {
+    border-color: rgba(239, 68, 68, 0.4);
+    box-shadow: 0 10px 25px rgba(239, 68, 68, 0.08);
+  }
+}
+
+/* High contrast scanner terminal */
+.terminal-window {
+  background: #fafafb;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: inset 0 1px 2px rgba(15, 23, 42, 0.02);
+}
+
+/* Light theme neon button */
+.btn-neon {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+
+.btn-neon::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  background: linear-gradient(
+    to right,
+    transparent,
+    rgba(255, 255, 255, 0.15),
+    transparent
+  );
+  transform: skewX(-25deg);
+  transition: 0.75s;
+}
+
+.btn-neon:hover::after {
+  left: 125%;
 }
